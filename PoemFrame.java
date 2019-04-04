@@ -5,29 +5,27 @@ import java.util.Random;
  * @Author Forrest Roberts
  * @Version 4-4-19
  */
-public class PoemFrame {
+public class PoemFrame extends Word {
     private Random rand;
-	private String frame;
 
 	/**
 	 * Constructor
 	 */
 	public PoemFrame(String _frame) {
+		super(_frame);
     	rand = new Random();
-		frame = _frame;
 	}
 
 	/**
 	 * Takes the frame and parses through, inserting words as needed.
 	 */
+	@Override
 	public String buildFrame(WordLoader wl) {
     	// split up the frame at spaces to parse one word at a time
-    	String[] words = frame.split(" ");
+    	String[] words = getWord().split(" ");
 		// parse through the words
 		String retstr = "";
 		for (int i = 0; i < words.length; i++) {
-			// DEBUG: output each word
-			//System.out.println(words[i]);
 			// check for word insertions
 			if (words[i].equals("[n]")) {
 				retstr += wl.getNoun();
@@ -57,11 +55,6 @@ public class PoemFrame {
     	}
 		// return the string
 		return newretstr;
-	}
-
-	@Override
-	public String toString() {
-		return frame;
 	}
 }
 

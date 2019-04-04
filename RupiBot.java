@@ -18,7 +18,7 @@ public class RupiBot {
      * Method which actually composes and returns the poem.
      */
 	public String compose() {
-    	PoemFrame pf = wl.getFrame();
+    	Word pf = wl.getFrame();
     	return pf.buildFrame(wl);
 	}
 }
