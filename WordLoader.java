@@ -13,8 +13,7 @@ public class WordLoader {
 	Scanner load;
 	File fread;
 	Random rand;
-	Word[] nouns, verbs, adjectives;
-	PoemFrame[] frames;
+	Word[] nouns, verbs, adjectives, frames;
 	
     /**
      * Constructor method; loads words into arrays from files.
@@ -29,39 +28,7 @@ public class WordLoader {
             nouns = trimArr(readFile("nouns"));
             verbs = trimArr(readFile("verbs"));
             adjectives = trimArr(readFile("adjectives"));
-
-			// read the frames file
-			fread = new File("frames");
-			load = new Scanner(fread);
-			// TODO: clean up this code
-			PoemFrame[] tempframes = new PoemFrame[100];
-			int counter = 0;
-			while (load.hasNextLine()) {
-    			if (counter == tempframes.length) {
-					PoemFrame[] newtemp = new PoemFrame[tempframes.length*2];
-					for (int i = 0; i < tempframes.length; i++) {
-						newtemp[i] = tempframes[i];
-					}
-					tempframes = newtemp;
-    			}
-				tempframes[counter] = new PoemFrame(load.nextLine());
-				counter++;
-			}
-			// trim down the array
-			int newSize = 0;
-			for (int i = 0; i < tempframes.length; i++) {
-				if (tempframes[i] == null) {
-					newSize = i;
-					break;
-				}
-			}
-			// copy into new array
-			frames = new PoemFrame[newSize];
-			for (int i = 0; i < newSize; i++) {
-				frames[i] = tempframes[i];
-			}
-			// close the loader
-			load.close();
+			frames = trimArr(readFile("frames"));
         } catch (FileNotFoundException e) { System.out.println(e); }
 
         // print out the words as a test
@@ -118,7 +85,10 @@ public class WordLoader {
 			}
     		
     		// load the next line into the return array
-			ret[counter] = new Word(load.nextLine());
+    		// TODO: this method is kind of sketch; make it better eventually
+    		if (fname == "frames") { ret[counter] = new PoemFrame(load.nextLine()); }
+    		else { ret[counter] = new Word(load.nextLine()); }
+			// increment the counter index for array
 			counter++;
 		}
 		// close the file
@@ -153,7 +123,7 @@ public class WordLoader {
 	 * Provides a poem frame at random from the loaded array.
 	 */
 	public PoemFrame getFrame() {
-		return frames[rand.nextInt(frames.length)];
+		return (PoemFrame) frames[rand.nextInt(frames.length)];
 	}
 	
 	/**
