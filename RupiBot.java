@@ -12,16 +12,14 @@ public class RupiBot {
 	 */
 	public RupiBot() {
 		wl = new WordLoader();
-		PoemFrame pf = wl.getFrame();
-		//System.out.println(pf);
-		System.out.println(pf.buildFrame(wl));
 	}
     
     /**
      * Method which actually composes and returns the poem.
      */
 	public String compose() {
-		return "null";
+    	PoemFrame pf = wl.getFrame();
+    	return pf.buildFrame(wl);
 	}
 }
 
