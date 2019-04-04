@@ -27,12 +27,36 @@ public class PoemFrame extends Word {
 		String retstr = "";
 		for (int i = 0; i < words.length; i++) {
 			// check for word insertions
+			// insert a noun
 			if (words[i].equals("[n]")) {
 				retstr += wl.getNoun();
+
+			// insert an adjective
 			} else if (words[i].equals("[a]")) {
     			retstr += wl.getAdjective();
+
+    		// insert a verb
 			} else if (words[i].equals("[v]")) {
     			retstr += wl.getVerb();
+
+    		// insert a noun, augmented by an adjective
+			} else if (words[i].equals("[a-n]")) {
+				Word noun = wl.getNoun();
+				if (noun.getWord().contains(" ")) {
+					// if the noun has a space, place adjective between article and noun
+					String[] splitNoun = noun.getWord().split(" ");
+					retstr += splitNoun[0] + " ";	// put the article
+					retstr += wl.getAdjective();	// put the adjective
+					for (int j = 1; j < splitNoun.length; j++) {
+    					// put the rest of the noun
+    					retstr += " " + splitNoun[j];
+					}
+				} else {
+    				// if the noun is one-word, just put them both in regularly
+    				retstr += wl.getAdjective();
+    				retstr += noun;
+				}
+    			
 			} else {
     			retstr += words[i];
 			}
