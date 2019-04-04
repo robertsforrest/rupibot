@@ -38,18 +38,25 @@ public class PoemFrame {
 			} else {
     			retstr += words[i];
 			}
-
-			// insert newlines into string with a random chance
-			if (rand.nextInt(3) == 1) {
-				// inject a newline
-				retstr += "\n";
+			retstr += " ";
+    	}
+    	// insert newlines at random into the poem
+    	// use a counter to ensure a newline occurs at least once every 5 words
+    	int wcount = 0, maxwords = 5;
+    	String[] retwords = retstr.split(" ");
+		String newretstr = "";
+    	for (int i = 0; i < retwords.length; i++) {
+			newretstr += retwords[i];
+			if (rand.nextInt(3) == 1 || wcount == maxwords) {
+    			newretstr += "\n";	// inject newline escape character
+    			wcount = 0;
 			} else {
-				// put space after word
-				retstr += " ";
+				newretstr += " ";	// in the absence of newline, put a space
 			}
+			wcount++;
     	}
 		// return the string
-		return retstr;
+		return newretstr;
 	}
 
 	@Override

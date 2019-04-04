@@ -34,7 +34,7 @@ public class WordLoader {
 			fread = new File("frames");
 			load = new Scanner(fread);
 			// TODO: make this less shitty later
-			frames = new PoemFrame[5];
+			frames = new PoemFrame[6];
 			int counter = 0;
 			while (load.hasNextLine()) {
 				frames[counter] = new PoemFrame(load.nextLine());
