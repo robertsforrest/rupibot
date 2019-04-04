@@ -1,5 +1,6 @@
 to do list, ordered from highest to lowest priority:
 
+-differentiate from active vs. passive verbs
 -dynamically assign articles/prepositions, i.e. "a, an, the", etc.
 -add support for reusing a specific word in a template
 -add support for hyphenated [n]-word format in templates
