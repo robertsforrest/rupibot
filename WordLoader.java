@@ -33,19 +33,45 @@ public class WordLoader {
 			// read the frames file
 			fread = new File("frames");
 			load = new Scanner(fread);
-			// TODO: make this less shitty later
-			frames = new PoemFrame[6];
+			// TODO: clean up this code
+			PoemFrame[] tempframes = new PoemFrame[100];
 			int counter = 0;
 			while (load.hasNextLine()) {
-				frames[counter] = new PoemFrame(load.nextLine());
+    			if (counter == tempframes.length) {
+					PoemFrame[] newtemp = new PoemFrame[tempframes.length*2];
+					for (int i = 0; i < tempframes.length; i++) {
+						newtemp[i] = tempframes[i];
+					}
+					tempframes = newtemp;
+    			}
+				tempframes[counter] = new PoemFrame(load.nextLine());
 				counter++;
+			}
+			// trim down the array
+			int newSize = 0;
+			for (int i = 0; i < tempframes.length; i++) {
+				if (tempframes[i] == null) {
+					newSize = i;
+					break;
+				}
+			}
+			// copy into new array
+			frames = new PoemFrame[newSize];
+			for (int i = 0; i < newSize; i++) {
+				frames[i] = tempframes[i];
 			}
 			// close the loader
 			load.close();
         } catch (FileNotFoundException e) { System.out.println(e); }
 
         // print out the words as a test
-		/*System.out.println("Printing the nouns...");
+		//printLoad();
+    }
+    /**
+     * Test output; prints the results of loading in all the words & templates.
+     */
+    private void printLoad() {
+		System.out.println("Printing the nouns...");
 		System.out.println("Length: " + nouns.length);
         for (int i = 0; i < nouns.length; i++) {
 			System.out.println(nouns[i]);
@@ -67,7 +93,7 @@ public class WordLoader {
 		System.out.println("Length: " + frames.length);
 		for (int i = 0; i < frames.length; i++) {
 			System.out.println(frames[i]);
-		}*/
+		}
     }
 
 	/**
@@ -84,7 +110,11 @@ public class WordLoader {
 		while (load.hasNextLine()) {
     		// account for needing to expand the array
 			if (counter == ret.length) {
-				// TODO: actually code here
+				Word[] newRet = new Word[ret.length*2];
+				for (int i = 0; i < ret.length; i++) {
+					newRet[i] = ret[i];
+				}
+				ret = newRet;
 			}
     		
     		// load the next line into the return array

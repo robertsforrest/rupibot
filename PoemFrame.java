@@ -47,7 +47,7 @@ public class PoemFrame {
 		String newretstr = "";
     	for (int i = 0; i < retwords.length; i++) {
 			newretstr += retwords[i];
-			if (rand.nextInt(3) == 1 || wcount == maxwords) {
+			if ((rand.nextInt(3) == 1 || wcount == maxwords) && i < retwords.length-1) {
     			newretstr += "\n";	// inject newline escape character
     			wcount = 0;
 			} else {
